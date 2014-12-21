@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -29,6 +32,41 @@ public class ForecastFragment extends Fragment {
     ListView listView;
 
     public ForecastFragment() {
+    }
+
+    //This method is made when we wanted to add Action Bar
+    // It is run before OnCreateView
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // We had this line so this fragment handles menu events
+        setHasOptionsMenu(true);
+    }
+
+    //This method is made when we wanted to add Action Bar
+    // It is run before OnCreateView
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.forecastfragment, menu);
+    }
+
+    //This method is made when we wanted to add Action Bar
+    // It is run before OnCreateView
+    // Getting notified when menu item is selected
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handles Actionbar item clicks here. The actionbar
+        // will automatically handle clicks on the Home/Up
+        // button as long as u specify a parent directory
+        // in AndroidManiferst.xml
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            FetchWeatherTask weatherTask = new FetchWeatherTask();
+            weatherTask.execute("08901");
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -67,12 +105,12 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
+    public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(String... params) {
 
             // These two need to be declared outside the try/catch
             // so that they can be closed in the finally block.
