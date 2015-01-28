@@ -230,6 +230,7 @@ public class ForecastFragment extends Fragment {
                 String UNITS_PARAM = "units";
                 String DAYS_PARAM = "cnt";
 
+                // URI is parent class to URL meaning URL is a type of URI
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM, params[0])
                         .appendQueryParameter(FORMAT_PARAM, format)
