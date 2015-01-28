@@ -11,8 +11,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +43,11 @@ public class ForecastFragment extends Fragment {
     public ForecastFragment() {
     }
 
-    //This method is made when we wanted to add Action Bar
-    // It is run before OnCreateView
+    /*
+    The system calls this when creating the fragment. Within your implementation,
+    you should initialize essential components of the fragment that you want to
+    retain when the fragment is paused or stopped, then resumed.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +81,18 @@ public class ForecastFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+    The system calls this when it's time for the fragment to draw its user interface
+    for the first time.
+    To draw a UI for your fragment, you must return a View from this method that is
+    the root of your fragment's layout. You can return null if the fragment does not
+    provide a UI */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
+
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         String[] forecastArray = {
                 "Today - Sunny - 88/63",
@@ -108,6 +120,15 @@ public class ForecastFragment extends Fragment {
 
         listView = (ListView) rootView.findViewById(R.id.listView_Forecast);
         listView.setAdapter(mForecastAdapter);
+
+        //Adding a toast message when each item on the list is clicked
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String text = mForecastAdapter.getItem(position);
+                Toast.makeText(getActivity(),text, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return rootView;
     }
