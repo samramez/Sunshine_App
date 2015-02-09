@@ -37,7 +37,7 @@ import java.util.List;
  */
 public class ForecastFragment extends Fragment {
 
-    private ArrayAdapter<String> mForecastAdapter;
+    private static ArrayAdapter<String> mForecastAdapter;
     ListView listView;
 
     public ForecastFragment() {
@@ -76,7 +76,7 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             FetchWeatherTask weatherTask = new FetchWeatherTask();
-            weatherTask.execute("08901");
+            weatherTask.execute("94043");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -254,7 +254,7 @@ public class ForecastFragment extends Fragment {
                 // http://openweathermap.org/API#forecast
 
                 final String FORECAST_BASE_URL =
-                        "http://api.openweathermap.org/data/2.5/forecast/daily?";
+                                  "http://api.openweathermap.org/data/2.5/forecast/daily?";
                 //URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
 
                 String QUERY_PARAM = "q";
@@ -331,7 +331,7 @@ public class ForecastFragment extends Fragment {
         }//doInBackground
 
         @Override
-        protected void onPostExecute(String[] result) {
+        protected void onPostExecute(String... result) {
 
             if( result != null){
                 mForecastAdapter.clear();
