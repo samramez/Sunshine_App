@@ -9,6 +9,11 @@
     <string name="title_activity_Setting">SettingActivity</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="pref_location_key">Location</string>
+    <string name="pref_location_default">94043</string>
+    <string name="pref_units_label">Temperature Units</string>
+    <string name="pref_units_key">Units</string>
+    <string name="pref_units_metric">Metric</string>
+    <string name="pref_units_imperial">Imperial</string>
 
 
 </resources>
